@@ -510,7 +510,7 @@ DESCRIPTION: This is the jsPsych version of the continuous movement task
     },
     on_finish: function(data) {
       data.response = String(data.response); // convert explicitly to string so that "undefined" (no response) does not lead to empty cells in the datafile
-      trial_type = data.trial_type;
+      trial_type = data.trial_type_data;
       count = data.count;
       stop_time = data.stop_time;
       goRT = data.goRT;

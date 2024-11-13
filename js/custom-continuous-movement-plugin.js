@@ -193,7 +193,7 @@ jsPsych.plugins["custom-continuous-movement-plugin"] = (function() {
 
       // gather the data to store for the trial
       var trial_data = {
-        "trial_type": trial.trial_type,
+        "trial_type_data": trial.trial_type,
         "count": trial.time,
         "stop_time": stop_time,
         "start_time": start_time,
