@@ -337,11 +337,11 @@ jsPsych.plugins["custom-continuous-movement-plugin"] = (function() {
     }
 
     var number_times = [];
-    for (i = 0; i < (stimuli.length - 1); i++) {
-      if (stop_time == null || trial.time - i - 1 > stop_time) {
+    for (i = 1; i < stimuli.length; i++) {
+      if (stop_time == null || trial.time - i + 1 > stop_time) {
         counter += 1000;
-        let my_stimuli = stimuli[i + 1];
-        let stim_idx = trial.time - i;
+        let my_stimuli = stimuli[i];
+        let stim_idx = trial.time - i + 1;
         jsPsych.pluginAPI.setTimeout(function() {
           display_element.innerHTML = my_stimuli;
           trigger_write(stim_idx);
