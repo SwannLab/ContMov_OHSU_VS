@@ -186,6 +186,9 @@ DESCRIPTION: This is the jsPsych version of the continuous movement task
   var age = null;
   var sex = null;
   var fix_time = null;
+  var start_time = null;
+  var number_times = null;
+  var stop_signal_time = null;
   var trial_type = null;
   var count = null;
   var stop_time = null;
@@ -421,6 +424,7 @@ DESCRIPTION: This is the jsPsych version of the continuous movement task
     on_finish: function(data) {
       var subjID = jsPsych.data.get().last(1).values()[0]['participantID'];
       data_row = "participantID,age,sex,block_i,trial_i,fix_time," +
+                 "start_time,number_times,stop_signal_time," +
                  "trial_type,count,stop_time,goRT,RT,go_pos_x," +
                  "go_pos_y,go_times,stop_pos_x,stop_pos_y,stop_times,exclude," +
                  "focus,Fullscreen,browser_name,browser_version,os_name,os_version," +
@@ -466,6 +470,8 @@ DESCRIPTION: This is the jsPsych version of the continuous movement task
   var write_cm_data = function() {    
       data_row = sub + ',' + age + ',' + sex + ',' + 
                block_ind + ',' + trial_ind + ',' + fix_time + ',' +
+               start_time + ',' + number_times.join('\t') + ',' +
+               stop_signal_time + ',' +
                trial_type + ',' + count + ',' + stop_time + ',' +
                goRT + ',' + RT + ',' +
                go_pos_x.join('\t') + ',' + go_pos_y.join('\t') + ',' +
@@ -513,6 +519,9 @@ DESCRIPTION: This is the jsPsych version of the continuous movement task
       trial_type = data.trial_type_data;
       count = data.count;
       stop_time = data.stop_time;
+      start_time = data.start_time;
+      number_times = data.number_times;
+      stop_signal_time = data.stop_signal_time;
       goRT = data.goRT;
       RT = data.RT;
       go_pos_x = data.go_pos_x;
