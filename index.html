@@ -218,7 +218,7 @@ DESCRIPTION: This is the jsPsych version of the continuous movement task
   var redirect_timeout = 1500; // set this so that data is saved before redirect!
 
   // is the experiment running from a server or not? (this determines if data is saved on server or offline)
-  var online = (document.location.host) ? true: false;
+  var online = (document.location.host && !document.location.host.includes("localhost")) ? true: false;
   var port;  // variable for bluetooth device
   var output_stream;  // bluetooth output stream
   var output_done;  // bluetooth boolean for whether stream has finished
@@ -429,7 +429,11 @@ DESCRIPTION: This is the jsPsych version of the continuous movement task
                  "go_pos_y,go_times,stop_pos_x,stop_pos_y,stop_times,exclude," +
                  "focus,Fullscreen,browser_name,browser_version,os_name,os_version," +
                  "tablet,mobile,screen_resolution,window_resolution\n";
-      appendData('CM_data_'+ sub + '.csv', data_row);
+      if (online) {
+        appendData('CM_data_'+ sub + '.csv', data_row);
+      } else {
+        appendDataOffline('CM_data_' + sub + '.csv', data_row);
+      }
     }
   };
 
@@ -494,6 +498,7 @@ DESCRIPTION: This is the jsPsych version of the continuous movement task
       }
       console.log('Took ' + (performance.now() - t_now) + 'ms to save');
     } else {
+      appendDataOffline('CM_data_' + sub + '.csv', data_row);
       data_str += data_row;
     }
   }
@@ -707,6 +712,21 @@ DESCRIPTION: This is the jsPsych version of the continuous movement task
   ######################################################################### */
 
   // function that appends data to an existing file (or creates the file if it does not exist)
+
+  async function appendDataOffline(filename, filedata) {
+    fetch('save_data_append', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          filename: filename,
+          filedata: filedata
+        }),
+    })
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error));
+  };
 
   async function appendData(filename, filedata) {
     $.ajax({ // make sure jquery-1.7.1.min.js is loaded in the html header for this to work
