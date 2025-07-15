@@ -1,4 +1,4 @@
-# CM-JS: The jsPsych version
+# ContMov-JS: The jsPsych version
 
 CM-JS jsPsych can be installed on local computers or on a web server, and is available under a GNU license. The software is based on the jsPsych (De Leeuw, 2015), which is *"a JavaScript library for running behavioral experiments in a web browser. The library provides a flexible framework for building a wide range of laboratory-like experiments."* We refer STOP-IT users to the jsPsych website (https://www.jspsych.org) for more information about jsPsych itself.
 
